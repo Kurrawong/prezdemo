@@ -38,7 +38,7 @@ tasks:
   dev:load:
     cmds:
       - echo "Loading data to fuseki from the ./data folder"
-      - uvx kurra db gsp post data http://localhost:3030/demods -g https://graphs/prezdemo
+      - uvx kurra@2.0.4 db gsp post data http://localhost:3030/demods -g https://graphs/prezdemo
 
   dev:reload:
     cmds:
