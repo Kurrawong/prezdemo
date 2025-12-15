@@ -1,13 +1,20 @@
 # https://Taskfile.dev
+
 version: 3
 
 silent: true
+
+vars:
+  fuseki_version: "5.5.0-0"
+  prez_version: "4.23.4"
+  prezui_version: "4.2.0"
+  kurra_version: "2.0.4"
 
 tasks:
   install:prez-ui:
     cmds:
       - echo "Creating new Prez-UI app in ./prez-ui"
-      - pnpm dlx create-prez-app@latest prez-ui
+      - pnpm dlx create-prez-app@{{.prezui_version}} prez-ui
       - echo "Installing prez-ui dependencies"
       - pnpm install --prefix prez-ui
     status:
@@ -17,14 +24,14 @@ tasks:
     dir: prez-ui
     cmds:
       - echo "Generating prez-ui static files"
-      - pnpm generate --loglevel error
+      - pnpm generate
     status:
       - test -f dist/index.html
 
   dev:up:
     cmds:
       - echo "Standing up the compose stack"
-      - docker compose -f docker/compose.yml up -d
+      - FUSEKI_VERSION={{.fuseki_version}} PREZ_VERSION={{.prez_version}} docker compose -f docker/compose.yml up -d
 
   dev:down:
     cmds:
@@ -38,7 +45,7 @@ tasks:
   dev:load:
     cmds:
       - echo "Loading data to fuseki from the ./data folder"
-      - uvx kurra@2.0.4 db gsp post data http://localhost:3030/demods -g https://graphs/prezdemo
+      - uvx kurra@{{.kurra_version}} db gsp post data http://localhost:3030/demods -g https://graphs/prezdemo
 
   dev:reload:
     cmds:

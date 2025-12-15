@@ -1,6 +1,6 @@
 services:
   fuseki:
-    image: ghcr.io/kurrawong/fuseki:5.5.0-0
+    image: ghcr.io/kurrawong/fuseki:${FUSEKI_VERSION}
     ports:
       - 3030:3030
     volumes:
@@ -14,7 +14,7 @@ services:
       retries: 3
 
   prez:
-    image: ghcr.io/rdflib/prez:4.23.4
+    image: ghcr.io/rdflib/prez:${PREZ_VERSION}
     ports:
       - 8000:8000
     environment:
