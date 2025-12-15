@@ -1,20 +1,20 @@
 services:
   fuseki:
-    image: ghcr.io/kurrawong/fuseki-geosparql:latest
+    image: ghcr.io/kurrawong/fuseki:5.5.0-0
     ports:
       - 3030:3030
     volumes:
       - type: bind
         source: ../fuseki/demods.ttl
-        target: /fuseki/config.ttl
+        target: /fuseki/configuration/demods.ttl
     healthcheck:
-      test: wget -qO- http://localhost:3030/$/ping
-      interval: 10s
+      test: wget -qO- http://fuseki:3030/$/ping
+      interval: 5s
       timeout: 5s
       retries: 3
 
   prez:
-    image: ghcr.io/rdflib/prez:latest
+    image: ghcr.io/rdflib/prez:4.23.4
     ports:
       - 8000:8000
     environment:
@@ -25,17 +25,17 @@ services:
         condition: service_healthy
     healthcheck:
       test: wget -qO- http://prez:8000/health
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 3
 
-  prez-ui:
+  nginx:
     image: nginx:alpine
     ports:
       - 3000:3000
     volumes:
       - type: bind
-        source: ../prez-ui/dist
+        source: ../prez-ui/.output/public
         target: /app
       - type: bind
         source: nginx.conf
@@ -45,7 +45,7 @@ services:
       prez:
         condition: service_healthy
     healthcheck:
-      test: wget -qO- http://prez-ui:3000/
-      interval: 10s
+      test: wget -qO- http://nginx:3000/
+      interval: 5s
       timeout: 5s
       retries: 3

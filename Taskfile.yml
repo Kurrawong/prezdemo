@@ -1,27 +1,34 @@
 # https://Taskfile.dev
 version: 3
 
+silent: true
+
 tasks:
   install:prez-ui:
     cmds:
+      - echo "Creating new Prez-UI app in ./prez-ui"
       - pnpm dlx create-prez-app@latest prez-ui
+      - echo "Installing prez-ui dependencies"
       - pnpm install --prefix prez-ui
     status:
       - test -d prez-ui
 
   build:prez-ui:
-    sources:
-      - ../prez-ui
     dir: prez-ui
     cmds:
-      - pnpm generate
+      - echo "Generating prez-ui static files"
+      - pnpm generate --loglevel error
+    status:
+      - test -f dist/index.html
 
   dev:up:
     cmds:
+      - echo "Standing up the compose stack"
       - docker compose -f docker/compose.yml up -d
 
   dev:down:
     cmds:
+      - echo "Taking down the compose stack"
       - docker compose -f docker/compose.yml down
 
   dev:restart:
@@ -30,7 +37,8 @@ tasks:
 
   dev:load:
     cmds:
-      - uvx kurra db upload data http://localhost:3030/demods -g https://graphs/prezdemo
+      - echo "Loading data to fuseki from the ./data folder"
+      - uvx kurra db gsp post data http://localhost:3030/demods -g https://graphs/prezdemo
 
   dev:reload:
     cmds:
@@ -43,6 +51,7 @@ tasks:
       - task: build:prez-ui
       - task: dev:up
       - task: dev:load
+      - echo "Opening Prez-ui (http://localhost:3000/catalogs) in the default webrowser."
       - uv run python -m webbrowser -t 'http://localhost:3000/catalogs'
 
   demo:stop:
