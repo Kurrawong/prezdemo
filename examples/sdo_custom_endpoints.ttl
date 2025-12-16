@@ -1,3 +1,36 @@
+# sdo_custom_endpoints.ttl
+#
+# Overview
+# ------------------
+#
+# This file gives an example of how to customize prez's endpoints.
+# That is, what routes are available (/catalogs, etc) and what data is
+# served at each of those routes.
+#
+# The default configuration is
+#
+# /catalogs/{catalogId}/collections/{collectionId}/items/{itemId}
+#
+# Where catalogs are dcat:Catalog's that dcterms:hasPart one or more 
+# dcat:Resource's. (among other things)
+#
+# The default endpoint definition can be seen at 
+# https://github.com/RDFLib/prez/blob/main/prez/reference_data/endpoints/data_endpoints_default/default_endpoints.ttl
+#
+# Usage
+# ------------------
+# To use this file,
+#
+# 1. copy it to ../data/custom_endpoints.ttl
+# 2. enable the custom endpoints feature in prez
+#    (this just adds an env variable setting to the docker compose file)
+#
+#     > patch -p1 <patches/enable_custom_endpoints.patch
+#
+# 3. stand up the demo instance
+#
+#     > task demo:start
+
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX ex: <http://example.org/>
