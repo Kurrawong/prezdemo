@@ -5,7 +5,7 @@ services:
       - 3030:3030
     volumes:
       - type: bind
-        source: ../fuseki/demods.ttl
+        source: demods.ttl
         target: /fuseki/configuration/demods.ttl
     healthcheck:
       test: wget -qO- http://fuseki:3030/$/ping

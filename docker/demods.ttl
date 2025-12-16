@@ -5,7 +5,8 @@ PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX tdb2:    <http://jena.apache.org/2016/tdb#>
 
 ## ---------------------------------------------------------------
-## Updatable TDB dataset with all services enabled.
+## Updatable TDB2 dataset with all services enabled.
+## To be mounted at /fuseki/configuration/demods.ttl
 
 :fuseki_service
   rdf:type                           fuseki:Service ;
