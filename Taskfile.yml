@@ -36,11 +36,11 @@ tasks:
   dev:down:
     cmds:
       - echo "Taking down the compose stack"
-      - docker compose -f docker/compose.yml down
+      - FUSEKI_VERSION={{.fuseki_version}} PREZ_VERSION={{.prez_version}} docker compose -f docker/compose.yml down
 
   dev:restart:
     cmds:
-      - docker compose -f docker/compose.yml restart
+      - FUSEKI_VERSION={{.fuseki_version}} PREZ_VERSION={{.prez_version}} docker compose -f docker/compose.yml restart
 
   dev:load:
     cmds:
