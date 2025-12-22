@@ -76,3 +76,14 @@ Prez
 - **[kurrawong/fuseki](https://github.com/kurrawong/fuseki)**: Dockerized Fuseki RDF
 database
 
+
+## FAQ
+
+<details>
+<summary>Does Prez run on windows?</summary>
+
+Yes, although no effort has been made by the prezdemo repository to ensure that this
+demo will run on Windows machines.
+
+If that is something you are interested in, let us know or PRs welcome.
+</details>
