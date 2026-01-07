@@ -10,7 +10,7 @@ A repository that can be used to quickly stand up and demo the full
 - [pnpm](https://pnpm.io/installation) - Fast Node.js package manager
 - [node](https://nodejs.org/en) - JavaScript runtime
 - [uv](https://docs.astral.sh/uv/getting-started/installation/) - Python package
-management
+  management
 
 ## Usage
 
@@ -21,6 +21,7 @@ task demo:start
 ```
 
 This will:
+
 1. Install and build the Prez-UI frontend
 2. Start the Docker containers (Fuseki, Prez, Nginx)
 3. Load sample RDF data into Fuseki
@@ -46,6 +47,7 @@ data includes demonstration catalogs and datasets that showcase Prez's capabilit
 ## Customization
 
 You can customize the demo by:
+
 - Modifying the data in the `./data` directory
 - Adjusting versions in `Taskfile.yml`
 
@@ -72,10 +74,9 @@ This demo integrates several key projects:
 
 - **[rdflib/prez](https://github.com/rdflib/prez)**: The core Prez backend service
 - **[rdflib/prez-ui](https://github.com/rdflib/prez-ui)**: The modern web interface for
-Prez
+  Prez
 - **[kurrawong/fuseki](https://github.com/kurrawong/fuseki)**: Dockerized Fuseki RDF
-database
-
+  database
 
 ## FAQ
 
@@ -86,4 +87,36 @@ Yes, although no effort has been made by the prezdemo repository to ensure that 
 demo will run on Windows machines.
 
 If that is something you are interested in, let us know or PRs welcome.
+
+</details>
+
+<details>
+<summary>How can I serve this demo over the web?</summary>
+You can do this, but you will need to tell Prez-UI where it is being served from.
+
+> By default Prez-UI (which runs in the browser) expects to find Prez at
+> http://localhost:8000
+
+If you are running the demo on a VM at <http://prez.demo>
+
+Then you would run:
+
+```bash
+task install:prez-ui
+echo "NUXT_PUBLIC_PREZ_API_ENDPOINT=http://prez.demo:8000" > prez-ui/.env
+task demo:start
+```
+
+You could then access the demo at <http://prez.demo:3000>
+
+> Naturally you will want to make sure that all the ports are exposed to the
+> public internet
+>
+> - port 3000 (prez-ui)
+> - port 8000 (prez-api)
+> - port 3030 (fuseki)
+>
+> If you would rather not use port 3000 for Prez-UI then update the
+> [compose.yml](./docker/compose.yml) file accordingly.
+
 </details>
